@@ -1,6 +1,9 @@
 import pygame
 from pygame.locals import *
 import time
+import random
+
+size = 40
 
 class Apple:
     def __init__(self, surface):
@@ -13,14 +16,17 @@ class Apple:
         self.surface.blit(self.apple, (self.x, self.y))
         pygame.display.flip()
 
+    def reAppear(self):
+        self.x = random.randint(0, 24)*size
+        self.y = random.randint(0, 14)*size
+
 class Snake:
     def __init__(self, surface, length):
-        self.size = 40
         self.length = length
         self.surface = surface
         self.block = pygame.image.load('resources/block.jpg').convert()
-        self.x = [self.size]*self.length
-        self.y = [self.size]*self.length
+        self.x = [size]*self.length
+        self.y = [size]*self.length
         self.direction = 'UP'
 
     def drawSnake(self):
@@ -47,29 +53,52 @@ class Snake:
             self.y[i] = self.y[i - 1]
 
         if self.direction == 'UP':
-            self.y[0] -= self.size
+            self.y[0] -= size
         if self.direction == 'DOWN':
-            self.y[0] += self.size
+            self.y[0] += size
         if self.direction == 'RIGHT':
-            self.x[0] += self.size
+            self.x[0] += size
         if self.direction == 'LEFT':
-            self.x[0] -= self.size
+            self.x[0] -= size
 
         self.drawSnake()
+
+    def incrementLenght(self):
+        self.length += 1
+        self.x.append(-1)
+        self.y.append(-1)
 
 class Game:
     def __init__(self):
         pygame.init()
-        self.surface = pygame.display.set_mode((600, 400))
+        self.surface = pygame.display.set_mode((1000, 600))
         self.surface.fill((110, 110, 5))
-        self.snake = Snake(self.surface, 4)
+        self.snake = Snake(self.surface, 1)
         self.snake.drawSnake()
         self.apple = Apple(self.surface)
         self.apple.drawApple()
 
+    def isCollision(self, x1, y1, x2, y2):
+        if x1 >= x2 and x1 < x2 + size:
+            if y1 >= y2 and y1 < y2 + size:
+                return True
+
+        return False
+
     def draw(self):
         self.snake.autoWALK()
         self.apple.drawApple()
+        self.displayScore()
+        pygame.display.flip()
+
+        if self.isCollision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+            self.snake.incrementLenght()
+            self.apple.reAppear()
+
+    def displayScore(self):
+        font = pygame.font.SysFont('Arial', 30)
+        score = font.render(f'SCORE {(self.snake.length - 1)}', True, (255, 255, 255))
+        self.surface.blit(score, (850, 5))
 
     def runGame(self):
         running = True
