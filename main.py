@@ -70,7 +70,7 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption('shahadathshahr2\'s snake.py v1')
+        pygame.display.set_caption('snakePy by shahadathshahr2')
         pygame.mixer.init()
         self.playBGM()
         self.surface = pygame.display.set_mode((500, 500))
@@ -219,7 +219,7 @@ class Game:
                 self.pause = True
                 self.resetGame()
 
-            time.sleep(0.09)
+            time.sleep(0.13)
 
 if __name__ == '__main__':
     game = Game()
