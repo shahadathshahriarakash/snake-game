@@ -94,6 +94,23 @@ class Game:
         bg = pygame.image.load('resources/background.jpg')
         self.surface.blit(bg, (0, 0))
 
+    def renderGameOver(self):
+        bg = pygame.image.load('resources/gameover.jpg')
+        self.surface.blit(bg, (0, 0))
+
+    def renderPause(self):
+        bg = pygame.image.load('resources/pause.jpg')
+        self.surface.blit(bg, (0, 0))
+        pygame.mixer.music.pause()
+
+    def Pause(self):
+        self.pause = True
+        self.renderPause()
+        font = pygame.font.SysFont('freesansbold.ttf', 50)
+        line = font.render(f'SCORE {(self.snake.length - 1)}', True, (48, 71, 94))
+        self.surface.blit(line, (50, 150))
+        pygame.display.flip()
+
     def resetGame(self):
         self.snake = Snake(self.surface, 1)
         self.apple = Food(self.surface)
@@ -122,32 +139,27 @@ class Game:
                 self.playSoundEffects('gameover')
                 raise 'Game Over'
 
-
     def displayScore(self):
-        font = pygame.font.SysFont('Arial', 15)
-        score = font.render(f'SCORE {(self.snake.length - 1)}', True, (255, 0, 179))
-        self.surface.blit(score, (425, 3))
+        font = pygame.font.SysFont('freesansbold.ttf', 30)
+        score = font.render(f'{(self.snake.length - 1)}', True, (48, 71, 94))
+        self.surface.blit(score, (3, 0))
+
 
     def displayGameOver(self):
-        self.renderBGI()
-        font = pygame.font.SysFont('Arial', 20)
-        line1 = font.render('!!! GAME IS OVER !!!', True, (235, 132, 7))
-        self.surface.blit(line1, (250, 200))
-        line2 = font.render(f'Your Score is: {(self.snake.length - 1)}', True, (255, 0, 179))
-        self.surface.blit(line2, (300, 250))
-        line3 = font.render('Press ENTER to play again.', True, (7, 235, 45))
-        self.surface.blit(line3, (300, 300))
-        line4 = font.render('Press q to exit the game.', True, (235, 7, 7))
-        self.surface.blit(line4, (300, 350))
+        self.renderGameOver()
+        font = pygame.font.SysFont('freesansbold.ttf', 50)
+        line = font.render(f'SCORE {(self.snake.length - 1)}', True, (48, 71, 94))
+        self.surface.blit(line, (50, 350))
         pygame.mixer.music.pause()
         pygame.display.flip()
 
     def runGame(self):
         running = True
-        pause = False
+        self.pause = False
 
         while running:
             for event in pygame.event.get():
+
                 if event.type == KEYDOWN:
 
                     if event.key == K_q:
@@ -155,9 +167,9 @@ class Game:
 
                     if event.key == K_RETURN:
                         pygame.mixer.music.unpause()
-                        pause = False
+                        self.pause = False
 
-                    if not pause:
+                    if not self.pause:
 
                         if event.key == K_UP:
                             self.snake.moveUP()
@@ -171,16 +183,19 @@ class Game:
                         if event.key == K_LEFT:
                             self.snake.moveLEFT()
 
+                        if event.key == K_m:
+                            self.Pause()
+
                 elif event.type == QUIT:
                     running = False
 
             try:
-                if not pause:
+                if not self.pause:
                     self.draw()
 
             except Exception as e:
                 self.displayGameOver()
-                pause = True
+                self.pause = True
                 self.resetGame()
 
             time.sleep(0.10)
