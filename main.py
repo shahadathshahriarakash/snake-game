@@ -188,7 +188,22 @@ class Game:
                         if event.key == K_LEFT:
                             self.snake.moveLEFT()
 
+                        if event.key == K_w:
+                            self.snake.moveUP()
+
+                        if event.key == K_s:
+                            self.snake.moveDOWN()
+
+                        if event.key == K_d:
+                            self.snake.moveRIGHT()
+
+                        if event.key == K_a:
+                            self.snake.moveLEFT()
+
                         if event.key == K_m:
+                            self.Pause()
+
+                        if event.key == K_ESCAPE:
                             self.Pause()
 
                 elif event.type == QUIT:
