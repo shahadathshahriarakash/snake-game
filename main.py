@@ -70,6 +70,7 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.display.set_caption('shahadathshahr2\'s snake.py v1')
         pygame.mixer.init()
         self.playBGM()
         self.surface = pygame.display.set_mode((500, 500))
