@@ -83,6 +83,7 @@ class Game:
         pygame.mixer.music.play(-1, 0)
 
     def playSoundEffects(self, soundName):
+        global sound
         if soundName == 'gameover':
             sound = pygame.mixer.Sound('resources/gameover.wav')
         elif soundName == 'points':
@@ -138,6 +139,10 @@ class Game:
             if self.isCollision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
                 self.playSoundEffects('gameover')
                 raise 'Game Over'
+
+        if not (0 <= self.snake.x[0] <= 500 and 0 <= self.snake.y[0] <= 500):
+            self.playSoundEffects('gameover')
+            raise "Hit the boundry error"
 
     def displayScore(self):
         font = pygame.font.SysFont('freesansbold.ttf', 30)
@@ -198,7 +203,7 @@ class Game:
                 self.pause = True
                 self.resetGame()
 
-            time.sleep(0.10)
+            time.sleep(0.09)
 
 if __name__ == '__main__':
     game = Game()
