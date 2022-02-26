@@ -1,7 +1,6 @@
-# Snake Game
+# snakePy
 
 A basic snake game with python3 using pygame.
-
 
 ## Requirements
 
@@ -9,52 +8,15 @@ A basic snake game with python3 using pygame.
 
 ![Pygame](https://img.shields.io/badge/Pygame%202.1.2-TESTED-brightgreen)
 
+## Details
 
-
-## Installation
-
-Download and Install 'snakePy.exe' from GitHub
-
-```bash
-  https://github.com/shahadathshahriarakash/snake-game/
-  open folder 'executable'
-  download 'snakePy.exe'
-  install 'snakePy.exe'
+```
+  This is the source code of my snakePy game.
 ```
 
 
+## snakePy Installer
 
-## How to Run
+https://github.com/shahadathshahriarakash/snakePy
 
-```
-  open 'installation' folder
-  run 'main.exe'
-
-  To create shortcut,
-  right click on 'main.exe'
-  then 'send to' > 'Desktop (create shortcut)'
-```
-
-
-## Controls
-
-```
-  UP -------->   W / Arrow Up
-  DOWN ------>   S / Arrow DOWN
-  LEFT ------>   A / Arrow Left
-  RIGHT ----->   D / Arrow Right
-  PAUSE ----->   M / esc
-  RESUME ---->   Enter
-  QUIT ------>   Q
-```
-
-## Screenshots
-
-![App Screenshot](https://raw.githubusercontent.com/shahadathshahriarakash/snake-game/master/screenshot.png)
-
-
-
-## Author
-
-- [@shahadathshahriarakash](https://github.com/shahadathshahriarakash)
 
